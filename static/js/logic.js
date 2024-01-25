@@ -1,5 +1,5 @@
  // Pull data from Airbnb JSON
-const AirbnbJSON = "static/data/listings.json";
+const AirbnbJSON = "static/data/listings_KP.json";
 
 // Add a Leaflet tile layer
 let streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -13,8 +13,8 @@ let myMap = L.map("map", {
     layers: [streets]
 });
 
-// // Add the tile layer to the map
-// streets.addTo(myMap);
+// Add the tile layer to the map
+streets.addTo(myMap);
 
 
 // Fetch Airbnb data
@@ -56,8 +56,9 @@ function markerSize(rating) {
 //         }
 //       }
 
-//     //Set up the Create Features function
-//     function createFeatures(AirbnbData) { 
+    //Set up the Create Features function
+    function createFeatures(AirbnbData) { 
+    }
 
         
 //     // Define a function that we want to run once for each feature in the features array.

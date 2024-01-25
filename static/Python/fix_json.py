@@ -3,6 +3,12 @@ import json
 # open('listings.json', 'w').write(
 #     json.dumps(json.load(open('static/data/listings_Kauai.json')), indent=4)
 # )
+
+open('listings_KP.json', 'w').write(
+     json.dumps(json.load(open('static/data/listings_KP.json')), indent=4)
+ )
+
+
 [print(x) for x in json.load(open('static/data/listings_Kauai.json')).keys()]
 """
 id
