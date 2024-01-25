@@ -17,19 +17,6 @@ let myMap = L.map("map", {
 // Add the tile layer to the map
 streets.addTo(myMap);
 
-// Fetch Airbnb data
-// fetch(AirbnbJSON)
-//     .then(response => response.json())
-//     .then(data => {
-//         // Loop through Airbnb data and add markers to the map
-//         data.forEach(listing => {
-//             const marker = L.marker([listing.latitude, listing.longitude])
-//                 .bindPopup(`<strong>${listing.name}</strong><br>${listing.room_type}`);
-//             marker.addTo(myMap);
-//         });
-//     })
-//     .catch(error => console.error('Error fetching Airbnb data:', error));
-
 // // Perform a GET request to query the d3.json(Airbnb)
 d3.json(AirbnbJSON).then(({latitude, longitude, price, review_scores_rating, beds}) => {
 // d3.json(AirbnbJSON).then(data => {
@@ -55,7 +42,10 @@ d3.json(AirbnbJSON).then(({latitude, longitude, price, review_scores_rating, bed
                 parseFloat(price_[i].slice(1)) > 500 ? "purple" :
                 parseFloat(price_[i].slice(1)) > 100 ? "red" :
                 parseFloat(price_[i].slice(1)) > 0 ? "yellow" : 'orange'
-        }).addTo(myMap)
+        }).bindPopup(L.popup({maxWidth:500})
+        .setContent(`<div>lat ${lat[i]} lon ${lon[i]}</div><div>price ${price_[i]}</div>`)).addTo(myMap)
+
+
     });
 
     // Once we get a response, send the data.features object to the createFeatures function.
@@ -71,6 +61,15 @@ function markerSize(rating) {
     function createFeatures(AirbnbData) { 
 
     }
+
+    // Define a function that we want to run once for each feature in the features array.
+    // Give each feature a popup that describes the Airbnb location, price and rating.
+    // function onEachFeature(feature, layer) {
+    //     layer.bindPopup(`<h3>Location: ${feature.properties.place}
+    //     </h3><hr><p>Date: ${new Date(feature.properties.time)}
+    //     </p><p>Magnitude: ${feature.properties.mag}
+    //     </p><p>Depth: ${feature.geometry.coordinates[2]}</p>`);
+    //   }
         
 //     // Define a function that we want to run once for each feature in the features array.
 //     // Give each feature a popup with the location, price, # of beds, rating.  
@@ -126,7 +125,7 @@ function markerSize(rating) {
       Airbnb: Airbnb
     };
   
-    // Create map, giving it the streetmap and earthquakes layers to display on load.
+    // Create map, giving it the streetmap and Airbnb layers to display on load.
     // let myMap = L.map("map", {
     //   center: [
     //     22.1, -159.53
