@@ -9,7 +9,7 @@ open('listings_KP.json', 'w').write(
  )
 
 
-[print(x) for x in json.load(open('static/data/listings_Kauai.json')).keys()]
+[print(x) for x in json.load(open('static/data/listings_KP.json')).keys()]
 """
 id
 host_id
