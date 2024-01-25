@@ -1,5 +1,5 @@
  // Pull data from Airbnb JSON
-const AirbnbJSON = "static/data/listings_KP.json";
+const AirbnbJSON = "static/data/listings_KP_Clean.json";
 
 // Add a Leaflet tile layer
 let streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -8,8 +8,9 @@ let streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
 
 // Create a Leaflet map object
 let myMap = L.map("map", {
-    center: [21.887, -159.461], // Kauai
-    zoom: 13,
+    center: [21.887, -159.46075
+    ], // Kauai
+    zoom: 14,
     layers: [streets]
 });
 
@@ -29,8 +30,7 @@ streets.addTo(myMap);
 //     })
 //     .catch(error => console.error('Error fetching Airbnb data:', error));
 
-// // Perform a GET request to query the CSV (assuming Airbnb is a CSV file, not JSON)
-// If it's a JSON file, you should use d3.json(Airbnb) instead
+// // Perform a GET request to query the d3.json(Airbnb)
 d3.json(AirbnbJSON).then(({latitude, longitude, price, review_scores_rating, beds}) => {
 // d3.json(AirbnbJSON).then(data => {
 
@@ -46,15 +46,15 @@ d3.json(AirbnbJSON).then(({latitude, longitude, price, review_scores_rating, bed
         console.log(parseFloat(price_[i].slice(1)));
         
         L.circleMarker([lat[i],lon[i]], {
-            radius: scores[i]*2,
-            fillOpacity: 1,
-            color: 'black',
+            radius: scores[i],
+            fillOpacity: .5,
+            color: 'grey',
             fillColor: 
                 parseFloat(price_[i].slice(1)) > 5000 ? "green" :
-                parseFloat(price_[i].slice(1)) > 2000 ? "brown" :
                 parseFloat(price_[i].slice(1)) > 1000 ? "blue" :
-                parseFloat(price_[i].slice(1)) > 500 ? "red" :
-                parseFloat(price_[i].slice(1)) > 100 ? "yellow" : 'orange'
+                parseFloat(price_[i].slice(1)) > 500 ? "purple" :
+                parseFloat(price_[i].slice(1)) > 100 ? "red" :
+                parseFloat(price_[i].slice(1)) > 0 ? "yellow" : 'orange'
         }).addTo(myMap)
     });
 
@@ -67,24 +67,10 @@ function markerSize(rating) {
     return rating * 1000;
 } 
   
-
-//     //Set the color scale for the markers
-//     function choosecolor(price) {
-//         switch(true) {
-//           case price > 5000: return "green";
-//           case price > 2000: return "bluegreen";
-//           case price > 1000: return "blue"; 
-//           case price > 500: return "yellowblue"; 
-//           case price > 100: return "yellow"; 
-//           default: return "whiteyellow";                    
-//         }
-//       }
-
     //Set up the Create Features function
     function createFeatures(AirbnbData) { 
 
     }
-
         
 //     // Define a function that we want to run once for each feature in the features array.
 //     // Give each feature a popup with the location, price, # of beds, rating.  
@@ -113,7 +99,7 @@ function markerSize(rating) {
 //     }
 //   });
 
-    // // Send our earthquakes layer to the createMap function/
+    // // Send our Airbnb layer to the createMap function/
     // createMap(Airbnb);
     
 
@@ -121,9 +107,9 @@ function markerSize(rating) {
   function createMap(Airbnb) {
 
     // Create the base layers.
-    let street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    })
+    // let street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    //   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    // })
   
     let topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
       attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
@@ -141,13 +127,13 @@ function markerSize(rating) {
     };
   
     // Create map, giving it the streetmap and earthquakes layers to display on load.
-    let myMap = L.map("map", {
-      center: [
-        22.1, -159.53
-      ],
-      zoom: 5,
-      layers: [street, Airbnb]
-    });
+    // let myMap = L.map("map", {
+    //   center: [
+    //     22.1, -159.53
+    //   ],
+    //   zoom: 5,
+    //   layers: [street, Airbnb]
+    // });
 
     streetMap.addTo(myMap);
 
